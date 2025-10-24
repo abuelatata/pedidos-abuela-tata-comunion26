@@ -1,0 +1,35 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abuela Tata · Pedidos Comunión 2026</title></head><body>
+<script>const DATA={brand:"Abuela Tata",whatsapp:"+34621268525",sizes:[6,7,8,9,10,11,12,13,14,15,16],supplement_patron:50,supplement_mismatch:18,items:[{"modelo": "07009122", "descripcion": "VESTIDO  COMUNION  26", "precio": 193.6}, {"modelo": "0709122", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 193.6}, {"modelo": "AT-1001", "descripcion": "Crema", "precio": 189.0}]};
+
+<script>
+// --- PARCHE DE PRECIOS Y DESCRIPCIONES (8 referencias) ---
+(() => {
+  const FIX = {
+    "07009122": { precio: 193.60, descripcion: "VESTIDO  COMUNION  26" },
+    "0709122":  { precio: 193.60, descripcion: "VESTIDO SIN VISO COLOR  COMUNION  26" },
+    "07017122": { precio: 193.60, descripcion: "VESTIDO  COMUNION  26" },
+    "0717122":  { precio: 193.60, descripcion: "VESTIDO SIN VISO COLOR  COMUNION  26" },
+    "07024122": { precio: 193.60, descripcion: "VESTIDO  COMUNION  26" },
+    "0724122":  { precio: 193.60, descripcion: "VESTIDO SIN VISO COLOR  COMUNION  26" },
+    "07025122": { precio: 193.60, descripcion: "VESTIDO  COMUNION  26" },
+    "0725122":  { precio: 193.60, descripcion: "VESTIDO SIN VISO COLOR  COMUNION  26" }
+  };
+  let cambios = 0;
+  if (window.DATA && Array.isArray(DATA.items)) {
+    DATA.items.forEach(it => {
+      const k = (it?.modelo ?? "").toString().trim();
+      if (Object.prototype.hasOwnProperty.call(FIX, k)) {
+        const f = FIX[k];
+        if (typeof f.precio === "number") it.precio = f.precio;
+        if (typeof f.descripcion === "string") it.descripcion = f.descripcion;
+        cambios++;
+      }
+    });
+  }
+  console.log("Ajustes aplicados (precios+descripciones):", cambios);
+})();
+</script>
+
+</script>
+</body></html>
