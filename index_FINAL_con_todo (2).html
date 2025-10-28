@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Abuela Tata · Pedidos Comunión 2026</title>
+<meta content="#c7b3ae" name="theme-color"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --brand:#b08c86; --brand-2:#e7dbd8; --ink:#1b1d1f; --muted:#6b7280; --bg:#fcf8f7;
+    }
+    * { box-sizing:border-box }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink);
+      font-family:'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; line-height:1.3; }
+    header.hero { text-align:center; padding:28px 16px 12px;
+      background: radial-gradient(800px 300px at 50% -10%, #ffffffcc, transparent 60%), var(--brand-2);
+      border-bottom:1px solid #eadfdb; }
+    .title-1 { font-family:'Libre Baskerville', serif; font-size:clamp(22px,4.5vw,36px); margin:0; color:#3a2a27; }
+    .title-2 { font-family:'Libre Baskerville', serif; font-style:italic; font-size:clamp(18px,3.6vw,26px); margin:2px 0 4px; color:#4b3a36; }
+    .subtitle { font-family:'Inter',sans-serif; color:#6b5b57; margin:0; font-size:clamp(14px,2.5vw,16px); }
+    .wrap { max-width:1060px; margin:0 auto; padding:16px; }
+    .stepper { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:14px 0; }
+    .step { display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #e8e0dc; border-radius:999px; padding:8px 12px; font-weight:700; }
+    .step .num { width:22px; height:22px; border-radius:50%; display:grid; place-items:center; background:#efe6e3; font-weight:800; }
+    .step.active { background:#f6eeec; border-color:#eadfdb; }
+    .card { background:#fff; border:1px solid #eee5e1; border-radius:18px; padding:16px; box-shadow:0 10px 28px rgba(78,51,45,.08); }
+    .grid { display:grid; gap:12px; }
+    .grid-2 { grid-template-columns:1fr 1fr; }
+    .grid-3 { grid-template-columns:1fr 1fr 1fr; }
+    @media (max-width:880px) { .grid-2, .grid-3 { grid-template-columns:1fr; } }
+    label { font-size:14px; font-weight:600; color:#66524d; display:block; margin-bottom:6px; }
+    input, select, textarea { width:100%; padding:12px 14px; border:1px solid #e6dcd8; border-radius:12px; font-size:16px; background:#fff; outline:none; }
+    input:focus, select:focus, textarea:focus { border-color:var(--brand); box-shadow:0 0 0 3px #e5d7d41f; }
+    .hint { color:var(--muted); font-size:12px; }
+    .btn { padding:12px 16px; border-radius:14px; border:1px solid #dacbc6; background:#fff; font-weight:800; cursor:pointer; }
+    .btn.primary { background:var(--brand); color:#fff; border-color:transparent; box-shadow:0 8px 20px rgba(176,140,134,.22); }
+    .btn.lg { padding:16px 18px; border-radius:16px; font-size:16px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    .sep { height:1px; background:#efe6e3; margin:6px 0 10px; }
+    .hidden { display:none; }
+    .pill { display:inline-block; background:#fff6f3; color:#513c37; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800; border:1px solid #f0e3df; }
+    .checks { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .checks label { display:flex; align-items:center; gap:8px; font-weight:700; color:#513c37; }
+    .list { border:1px solid #eee5e1; border-radius:14px; overflow:hidden; }
+    .row { display:grid; grid-template-columns:140px 1fr 90px 90px 130px 70px 120px; gap:10px; align-items:center; border-bottom:1px solid #f3ece9; padding:10px; }
+    .row.header { background:#faf6f4; font-weight:800; color:#57433f; }
+    .row:last-child { border-bottom:none; }
+    .right { text-align:right; }
+    .totals { display:flex; justify-content:flex-end; gap:22px; align-items:center; margin-top:12px; }
+    .special { border:1px dashed #e1c7c1; background:#fff9f7; padding:12px; border-radius:12px; margin-top:8px; }
+    .special h3 { margin:0 0 6px; font-size:14px; font-weight:800; color:#514341; }
+  </style>
+
+<style>
+#at-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  max-width: 680px;
+  width: calc(100% - 32px);
+  background: #fff7f5;
+  border: 1px solid #f1e3de;
+  color: #513c37;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 14px 16px 14px 16px;
+  display: none;
+  z-index: 9999;
+  font-family: inherit;
+}
+#at-toast.show { display: block; animation: at-toast-in .18s ease-out; }
+#at-toast .at-title { font-weight: 700; margin-bottom: 4px; display: flex; gap: 8px; align-items: center; }
+#at-toast .at-text { line-height: 1.25; }
+#at-toast .at-close {
+  position: absolute; right: 10px; top: 10px;
+  cursor: pointer; font-size: 16px; line-height: 16px; border: 0; background: transparent; color: #7a5d57;
+}
+@keyframes at-toast-in { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+</style>
+
+</head>
+<body>
+<header class="hero">
+<h1 class="title-1">Colección Comunión 2026</h1>
+<h2 class="title-2">Abuela Tata</h2>
+<p class="subtitle">Moda infantil artesanal con alma y ternura</p>
+</header>
+<div class="wrap">
+<div class="stepper">
+<div class="step active" id="s1"><div class="num">1</div>Datos del cliente</div>
+<div class="step" id="s2"><div class="num">2</div>Modelo y tallas</div>
+<div class="step" id="s3"><div class="num">3</div>Resumen y envío</div>
+</div>
+<!-- Paso 1 -->
+<section class="card grid grid-2" id="paso1">
+<div class="sep" style="grid-column:1/-1"></div>
+<div><label for="tienda">Nombre de la tienda</label><input id="tienda" placeholder="Ej.: Boutique Elegance"/></div>
+<div><label for="contacto">Persona de contacto</label><input id="contacto" placeholder="Ej.: María Pérez"/></div>
+<div><label for="ciudad">Ciudad / País</label><input id="ciudad" placeholder="Ej.: Sevilla, España"/></div>
+<div><label for="nombreNinaNino">Nombre de niña o niño</label><input id="nombreNinaNino" placeholder="Ej.: Sofía / Daniel"/><div class="hint">Se añadirá al mensaje del pedido.</div></div>
+<div><label for="fechaServicio">Fecha de servicio</label><input id="fechaServicio" type="date"/><div class="hint">Fecha objetivo de entrega/servicio.</div></div>
+<div class="grid-2" style="grid-column:1/-1">
+<div><label for="observaciones">Observaciones</label><textarea id="observaciones" placeholder="Plazos, comentarios, notas..." rows="3"></textarea></div>
+<div style="align-self:end;display:flex;gap:10px;justify-content:flex-end">
+<button class="btn" disabled="" id="to2prev">Atrás</button>
+<button class="btn primary" id="to2">Continuar a modelos</button>
+</div>
+</div>
+</section>
+<!-- Paso 2 -->
+<section class="card grid grid-2 hidden" id="paso2">
+<div class="sep" style="grid-column:1/-1"></div>
+<div>
+<label for="modelo">Modelo</label>
+<select id="modelo">
+<option disabled="" selected="" value="">— Selecciona un modelo —</option>
+</select>
+<div class="hint">Los modelos aparecen al abrir el desplegable.</div>
+</div>
+<div class="grid grid-2">
+<div>
+<label for="tallaCuerpo">Talla cuerpo</label>
+<select id="tallaCuerpo">
+<option disabled="" selected="" value="">— Selecciona talla —</option>
+</select>
+</div>
+<div>
+<label for="tallaFalda">Talla falda</label>
+<select id="tallaFalda">
+<option disabled="" selected="" value="">— Selecciona talla —</option>
+</select>
+<div class="hint">Si cuerpo y falda (numéricas) son diferentes, se añade automáticamente <strong>+18 €</strong>.</div>
+</div>
+</div>
+<div class="grid grid-2">
+<div>
+<label for="cantidad">Cantidad</label>
+<input id="cantidad" min="1" type="number" value="1"/>
+</div>
+<div class="checks">
+<label><input id="patronEsp" type="checkbox"/> Patrón / medidas especiales (+50€)</label>
+<button class="btn" id="btnEspeciales" type="button">✂️ Tallas especiales</button>
+</div>
+</div>
+<div class="special hidden" id="boxEspeciales" style="grid-column:1/-1">
+<h3>Medidas especiales</h3>
+<p class="hint" style="margin:4px 0 8px">Por favor, introduce las medidas en centímetros para confeccionar el vestido a medida.</p>
+<div class="grid grid-3">
+<div><label>Ancho de hombro (cm)</label><input id="m_hombro" step="0.1" type="number"/></div>
+<div><label>Ancho de manga · bíceps (cm)</label><input id="m_ancho_manga" step="0.1" type="number"/></div>
+<div><label>Largo de manga (desde hombro) (cm)</label><input id="m_largo_manga" step="0.1" type="number"/></div>
+<div><label>Contorno de pecho (cm)</label><input id="m_pecho" step="0.1" type="number"/></div>
+<div><label>Contorno de cintura (cm)</label><input id="m_cintura" step="0.1" type="number"/></div>
+<div><label>Largo de talle (cm)</label><input id="m_talle" step="0.1" type="number"/></div>
+<div><label>Largo de vestido total (cm)</label><input id="m_vestido" step="0.1" type="number"/></div>
+</div>
+<div class="hint">Al usar tallas especiales suele aplicarse el suplemento de <strong>+50 €</strong>.</div>
+</div>
+<div class="grid grid-3">
+<div>
+<label>Precio unitario</label>
+<div class="pill" id="precioBase">—</div>
+</div>
+<div>
+<label>Suplementos</label>
+<div class="pill" id="suplTxt">—</div>
+</div>
+<div>
+<label>Total línea</label>
+<div class="pill" id="totalLinea">—</div>
+</div>
+</div>
+<div style="display:flex;gap:10px;justify-content:space-between">
+<button class="btn" id="back1">Volver</button>
+<div class="actions">
+<button class="btn" id="limpiar">Limpiar selección</button>
+<button class="btn primary" disabled="" id="add">Añadir línea</button>
+</div>
+</div>
+</section>
+<!-- Paso 3 -->
+<section class="card hidden" id="paso3">
+<div class="sep"></div>
+<div class="list" id="lista">
+<div class="row header hidden" id="headerLineas">
+<div>Modelo</div>
+<div>Descripción</div>
+<div class="right">Cuerpo</div>
+<div class="right">Falda</div>
+<div class="right">Supl.</div>
+<div class="right">Cant.</div>
+<div class="right">Importe</div>
+</div>
+</div>
+<div class="totals">
+<strong>Total pedido:</strong>
+<div class="pill" id="totalPedido">0,00 €</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+<button class="btn" id="back2">Volver a modelos</button>
+<div class="actions">
+<button class="btn primary lg" id="btnWhatsApp">Pedir por WhatsApp</button>
+<button class="btn lg" id="btnEmail">Pedir por email</button>
+</div>
+</div>
+<div class="hint" style="text-align:center;margin-top:8px">Gracias por confiar en Abuela Tata 💕</div>
+</section>
+</div>
+<script>
+const DATA = {
+  brand: "Abuela Tata",
+  whatsapp: "+34621268525",
+  sizes: [6,7,8,9,10,11,12,13,14,15,16],
+  supplement_patron: 50,
+  supplement_mismatch: 18,
+  items: [{"modelo": "709121", "descripcion": "VESTIDO  COMUNION  26", "precio": 194.0}, {"modelo": "717121", "descripcion": "VESTIDO  COMUNION  26", "precio": 194.0}, {"modelo": "731121", "descripcion": "VESTIDO  COMUNION  26", "precio": 194.0}, {"modelo": "7009122", "descripcion": "VESTIDO  COMUNION  26", "precio": 193.6}, {"modelo": "709122", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 193.6}, {"modelo": "7017122", "descripcion": "VESTIDO  COMUNION  26", "precio": 193.6}, {"modelo": "717122", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 193.6}, {"modelo": "7024122", "descripcion": "VESTIDO  COMUNION  26", "precio": 193.6}, {"modelo": "724122", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 193.6}, {"modelo": "7025122", "descripcion": "VESTIDO  COMUNION  26", "precio": 193.6}, {"modelo": "725122", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 193.6}, {"modelo": "7017123", "descripcion": "VESTIDO SIN MANGAS  COMUNION  26", "precio": 213.0}, {"modelo": "717123", "descripcion": "VESTIDO  COMUNION  26", "precio": 213.0}, {"modelo": "7024123", "descripcion": "VESTIDO SIN MANGAS  COMUNION  26", "precio": 213.0}, {"modelo": "724123", "descripcion": "VESTIDO  COMUNION  26", "precio": 213.0}, {"modelo": "7025123", "descripcion": "VESTIDO SIN MANGAS  COMUNION  26", "precio": 213.0}, {"modelo": "725123", "descripcion": "VESTIDO  COMUNION  26", "precio": 213.0}, {"modelo": "7017124", "descripcion": "VESTIDO  COMUNION  26", "precio": 179.95}, {"modelo": "717124", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 179.95}, {"modelo": "7024124", "descripcion": "VESTIDO  COMUNION  26", "precio": 179.95}, {"modelo": "724124", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 179.95}, {"modelo": "7025124", "descripcion": "VESTIDO  COMUNION  26", "precio": 179.95}, {"modelo": "725124", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 179.95}, {"modelo": "709125", "descripcion": "VESTIDO  COMUNION  26", "precio": 199.0}, {"modelo": "717125", "descripcion": "VESTIDO  COMUNION  26", "precio": 199.0}, {"modelo": "724125", "descripcion": "VESTIDO  COMUNION  26", "precio": 199.0}, {"modelo": "725125", "descripcion": "VESTIDO  COMUNION  26", "precio": 199.0}, {"modelo": "704126", "descripcion": "VESTIDO  COMUNION  26", "precio": 221.0}, {"modelo": "709126", "descripcion": "VESTIDO  COMUNION  26", "precio": 221.0}, {"modelo": "704127", "descripcion": "VESTIDO  COMUNION  26", "precio": 174.5}, {"modelo": "724127", "descripcion": "VESTIDO  COMUNION  26", "precio": 174.5}, {"modelo": "725127", "descripcion": "VESTIDO  COMUNION  26", "precio": 174.5}, {"modelo": "709128", "descripcion": "VESTIDO  COMUNION  26", "precio": 157.95}, {"modelo": "717128", "descripcion": "VESTIDO  C OMUNION 26", "precio": 157.95}, {"modelo": "725128", "descripcion": "VESTIDO  COMUNION  26", "precio": 157.95}, {"modelo": "725129", "descripcion": "VESTIDO  COMUNION  26", "precio": 205.0}, {"modelo": "709130", "descripcion": "VESTIDO  COMUNION  25", "precio": 228.0}, {"modelo": "717130", "descripcion": "VESTIDO  COMUNION  26", "precio": 228.0}, {"modelo": "725130", "descripcion": "VESTIDO  COMUNION  26", "precio": 228.0}, {"modelo": "7009131", "descripcion": "VESTIDO  COMUNION  26", "precio": 165.85}, {"modelo": "709131", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 160.85}, {"modelo": "7025131", "descripcion": "VESTIDO  COMUNION  26", "precio": 165.85}, {"modelo": "725131", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 160.85}, {"modelo": "7016131", "descripcion": "VESTIDO  COMUNION  26", "precio": 165.85}, {"modelo": "716131", "descripcion": "VESTIDO SIN VISO COLOR  COMUNION  26", "precio": 160.85}, {"modelo": "725132", "descripcion": "VESTIDO  COMUNION  26", "precio": 165.0}, {"modelo": "725133", "descripcion": "VESTIDO  COMUNION  26", "precio": 183.0}, {"modelo": "709133", "descripcion": "VESTIDO  COMUNION  26", "precio": 183.0}, {"modelo": "705134", "descripcion": "VESTIDO  COMUNION  26", "precio": 161.0}, {"modelo": "717134", "descripcion": "VESTIDO  COMUNION  26", "precio": 161.0}, {"modelo": "724134", "descripcion": "VESTIDO  COMUNION  26", "precio": 161.0}, {"modelo": "725134", "descripcion": "VESTIDO  COMUNION  26", "precio": 161.0}, {"modelo": "725135", "descripcion": "VESTIDO  COMUNION  26", "precio": 210.0}, {"modelo": "717135", "descripcion": "VESTIDO  COMUNION  26", "precio": 210.0}, {"modelo": "724135", "descripcion": "VESTIDO  COMUNION  26", "precio": 210.0}, {"modelo": "724136", "descripcion": "VESTIDO  C OMUNION 26", "precio": 230.0}, {"modelo": "705136", "descripcion": "VESTIDO  COMUNION  26", "precio": 230.0}, {"modelo": "725136", "descripcion": "VESTIDO  COMUNION  26", "precio": 230.0}, {"modelo": "700137", "descripcion": "VESTIDO  C OMUNION 26", "precio": 166.85}, {"modelo": "709137", "descripcion": "VESTIDO  C OMUNION 26", "precio": 166.85}, {"modelo": "725137", "descripcion": "VESTIDO  C OMUNION 26", "precio": 166.85}, {"modelo": "705138", "descripcion": "VESTIDO  COMUNION  26", "precio": 149.0}, {"modelo": "724138", "descripcion": "VESTIDO  COMUNION  26", "precio": 149.0}, {"modelo": "725138", "descripcion": "VESTIDO  COMUNION  26", "precio": 149.0}, {"modelo": "726139", "descripcion": "VESTIDO  COMUNION  26", "precio": 195.0}, {"modelo": "709139", "descripcion": "VESTIDO  COMUNION  26", "precio": 195.0}, {"modelo": "725140", "descripcion": "VESTIDO  COMUNION  26 SIN MANGA", "precio": 150.0}, {"modelo": "7025140", "descripcion": "VESTIDO  COM. MANGA LARGA", "precio": 168.0}, {"modelo": "717140", "descripcion": "VESTIDO  COMUNION  26", "precio": 150.0}, {"modelo": "7017140", "descripcion": "VESTIDO  COM. MANGA LARGA", "precio": 168.0}, {"modelo": "724140", "descripcion": "VESTIDO  COMUNION  26", "precio": 150.0}, {"modelo": "7024140", "descripcion": "VESTIDO  COM. MANGA LARGA", "precio": 168.0}, {"modelo": "731141", "descripcion": "VESTIDO  COMUNION  26", "precio": 139.0}, {"modelo": "7031141", "descripcion": "VESTIDO  MANGA SISA", "precio": 139.0}, {"modelo": "732141", "descripcion": "VESTIDO  COMUNION  26", "precio": 139.0}, {"modelo": "7032141", "descripcion": "VESTIDO MANGA SISA", "precio": 139.0}, {"modelo": "LAZADA", "descripcion": "COLORIDO GENERAL", "precio": 135.0}, {"modelo": "601142", "descripcion": "TIARA", "precio": 43.0}, {"modelo": "602142", "descripcion": "TIARA", "precio": 39.85}, {"modelo": "603142", "descripcion": "TIARA", "precio": 39.2}, {"modelo": "604142", "descripcion": "TIARA", "precio": 41.65}, {"modelo": "605142", "descripcion": "TIARA", "precio": 37.95}, {"modelo": "606142", "descripcion": "TIARA", "precio": 39.55}, {"modelo": "607142", "descripcion": "TIARA", "precio": 39.65}, {"modelo": "608142", "descripcion": "TIARA", "precio": 40.35}, {"modelo": "609142", "descripcion": "TIARA", "precio": 42.85}, {"modelo": "611142", "descripcion": "TIARA", "precio": 37.95}, {"modelo": "612142", "descripcion": "TIARA", "precio": 33.05}, {"modelo": "613142", "descripcion": "TIARA", "precio": 38.95}, {"modelo": "614142", "descripcion": "TIARA", "precio": 50.1}, {"modelo": "615142", "descripcion": "TIARA", "precio": 38.3}, {"modelo": "616142", "descripcion": "TIARA", "precio": 37.25}, {"modelo": "617142", "descripcion": "TIARA", "precio": 39.2}, {"modelo": "1800999", "descripcion": "LAZADA COLOR BLANCO ROTO", "precio": 13.5}, {"modelo": "1801999", "descripcion": "LAZADA COLOR ROSA", "precio": 13.5}, {"modelo": "1805999", "descripcion": "LAZADA COLOR BEIGE", "precio": 13.5}, {"modelo": "1809999", "descripcion": "LAZADA COLOR VERDE AGUA", "precio": 13.5}, {"modelo": "1816999", "descripcion": "LAZADA COLOR NUDE", "precio": 13.5}, {"modelo": "1817999", "descripcion": "LAZADA COLOR AZUL", "precio": 13.5}, {"modelo": "1824999", "descripcion": "LAZADA COLOR MENTA", "precio": 13.5}, {"modelo": "1825999", "descripcion": "LAZADA COLOR MAQUILLAJE", "precio": 13.5}, {"modelo": "1826999", "descripcion": "LAZADA COLOR MALVA", "precio": 13.5}, {"modelo": "1831999", "descripcion": "LAZADA COLOR VINO", "precio": 13.5}, {"modelo": "1832999", "descripcion": "LAZADA COLOR OLIVA", "precio": 13.5}]
+};
+
+function euros(n){ return (n||0).toLocaleString('es-ES',{style:'currency',currency:'EUR'}); }
+const state = { lineas: [] };
+
+// Paso 2 elements
+const $modelo = document.getElementById('modelo');
+const $tallaCuerpo = document.getElementById('tallaCuerpo');
+const $tallaFalda = document.getElementById('tallaFalda');
+const $cantidad = document.getElementById('cantidad');
+const $precioBase = document.getElementById('precioBase');
+const $suplTxt = document.getElementById('suplTxt');
+const $totalLinea = document.getElementById('totalLinea');
+const $btnAdd = document.getElementById('add');
+const $patronEsp = document.getElementById('patronEsp');
+const $btnEspeciales = document.getElementById('btnEspeciales');
+const $boxEspeciales = document.getElementById('boxEspeciales');
+
+// Paso 3
+const $lista = document.getElementById('lista');
+const $headerLineas = document.getElementById('headerLineas');
+const $totalPedido = document.getElementById('totalPedido');
+
+// Steps
+const paso1 = document.getElementById('paso1');
+const paso2 = document.getElementById('paso2');
+const paso3 = document.getElementById('paso3');
+const s1 = document.getElementById('s1');
+const s2 = document.getElementById('s2');
+const s3 = document.getElementById('s3');
+function go(n){ [paso1,paso2,paso3].forEach((p,i)=>p.classList.toggle('hidden',i!==n-1)); [s1,s2,s3].forEach((el,i)=>el.classList.toggle('active',i===n-1)); }
+
+// Robust listeners (preventDefault)
+document.getElementById('to2').addEventListener('click',(e)=>{ e.preventDefault(); go(2); });
+document.getElementById('back1').addEventListener('click',(e)=>{ e.preventDefault(); go(1); });
+document.getElementById('back2').addEventListener('click',(e)=>{ e.preventDefault(); go(2); });
+
+// Helpers
+function isNumericSize(v){ return /^\d+$/.test(String(v)); }
+
+// Populate models and sizes (+ 'A medida')
+let modelsPopulated=false, sizesPopulated=false;
+function populateModels(){ if(modelsPopulated) return; DATA.items.forEach(it=>{ const o=document.createElement('option'); o.value=JSON.stringify(it); o.textContent=`${it.modelo} · ${it.descripcion||''}`.trim(); $modelo.appendChild(o); }); modelsPopulated=true; }
+function populateSizes(){ if(sizesPopulated) return;
+  DATA.sizes.forEach(s=>{ const o1=document.createElement('option'); o1.value=String(s); o1.textContent=s+'A'; const o2=o1.cloneNode(true); $tallaCuerpo.appendChild(o1); $tallaFalda.appendChild(o2); });
+  const am1=document.createElement('option'); am1.value='amedida'; am1.textContent='A medida';
+  const am2=am1.cloneNode(true);
+  $tallaCuerpo.appendChild(am1); $tallaFalda.appendChild(am2);
+  sizesPopulated=true;
+}
+['focus','mousedown','click'].forEach(ev=>{ $modelo.addEventListener(ev,populateModels); $tallaCuerpo.addEventListener(ev,populateSizes); $tallaFalda.addEventListener(ev,populateSizes); });
+
+function validarLinea(){ const ok=$modelo.value && $tallaCuerpo.value && $tallaFalda.value; $btnAdd.disabled=!ok; return ok; }
+
+function calcularLinea(){
+  if(!validarLinea()){ $precioBase.textContent='—'; $totalLinea.textContent='—'; $suplTxt.textContent='—'; return; }
+  const item = JSON.parse($modelo.value);
+  const base = item.precio || 0;
+
+  const mismatch = (isNumericSize($tallaCuerpo.value) && isNumericSize($tallaFalda.value) && $tallaCuerpo.value !== $tallaFalda.value) ? DATA.supplement_mismatch : 0;
+
+  // 'A medida' auto abre medidas y marca patrón
+  if ($tallaCuerpo.value==='amedida' || $tallaFalda.value==='amedida') { $patronEsp.checked = true; $boxEspeciales.classList.remove('hidden'); }
+
+  const supPatron = $patronEsp.checked ? DATA.supplement_patron : 0;
+  const cant = Math.max(1, Number($cantidad.value||1));
+
+  $precioBase.textContent = euros(base);
+  const tags = [];
+  if (mismatch) tags.push('+18€ cuerpo≠falda');
+  if (supPatron) tags.push('+50€ patrón');
+  $suplTxt.textContent = tags.length? tags.join(' · ') : '—';
+  $totalLinea.textContent = euros((base + mismatch + supPatron) * cant);
+}
+['change','input'].forEach(ev=>{ [$modelo,$tallaCuerpo,$tallaFalda,$cantidad,$patronEsp].forEach(el=>el.addEventListener(ev,calcularLinea)); });
+
+document.getElementById('limpiar').addEventListener('click',()=>{ $modelo.value=''; $tallaCuerpo.value=''; $tallaFalda.value=''; $cantidad.value=1; $patronEsp.checked=false; $boxEspeciales.classList.add('hidden'); $suplTxt.textContent='—'; calcularLinea(); });
+$btnEspeciales.addEventListener('click',()=>{ $boxEspeciales.classList.toggle('hidden'); if(!$boxEspeciales.classList.contains('hidden')) $patronEsp.checked=true; calcularLinea(); });
+
+document.getElementById('add').addEventListener('click',(e)=>{
+  e.preventDefault();
+  if(!validarLinea()) return;
+  const it = JSON.parse($modelo.value);
+  const cant = Math.max(1, Number($cantidad.value||1));
+  const mismatch = (isNumericSize($tallaCuerpo.value) && isNumericSize($tallaFalda.value) && $tallaCuerpo.value !== $tallaFalda.value) ? DATA.supplement_mismatch : 0;
+  const supPatron = $patronEsp.checked ? DATA.supplement_patron : 0;
+  const precioUnit = (it.precio||0) + mismatch + supPatron;
+  const suplementosTxt = [ (mismatch?'+18€ cuerpo≠falda':''), (supPatron?'+50€ patrón':'') ].filter(Boolean).join(' · ') || '—';
+
+  const label = v => v==='amedida' ? 'A medida' : (v+'A');
+
+  const medidas = {
+    hombro: document.getElementById('m_hombro')?.value||'',
+    ancho_manga: document.getElementById('m_ancho_manga')?.value||'',
+    largo_manga: document.getElementById('m_largo_manga')?.value||'',
+    pecho: document.getElementById('m_pecho')?.value||'',
+    cintura: document.getElementById('m_cintura')?.value||'',
+    talle: document.getElementById('m_talle')?.value||'',
+    vestido: document.getElementById('m_vestido')?.value||''
+  };
+
+  state.lineas.push({
+    modelo: it.modelo,
+    descripcion: it.descripcion||'',
+    tallaCuerpo: label($tallaCuerpo.value),
+    tallaFalda: label($tallaFalda.value),
+    cantidad: cant,
+    precioUnit, importe: precioUnit * cant,
+    suplementos: suplementosTxt,
+    medidas
+  });
+  renderPedido();
+  go(3);
+});
+
+function renderPedido(){
+  document.querySelectorAll('#lista .row.item').forEach(el=>el.remove());
+  let total=0;
+  state.lineas.forEach((ln,idx)=>{
+    total += ln.importe;
+    const row=document.createElement('div');
+    row.className='row item';
+    row.innerHTML=`<div>${ln.modelo}</div>
+      <div>${ln.descripcion}</div>
+      <div class="right">${ln.tallaCuerpo}</div>
+      <div class="right">${ln.tallaFalda}</div>
+      <div class="right">${ln.suplementos}</div>
+      <div class="right">${ln.cantidad}</div>
+      <div class="right">${euros(ln.importe)} <a href="#" data-idx="${idx}" class="muted" style="margin-left:8px">Eliminar</a></div>`;
+    row.querySelector('a').addEventListener('click',e=>{e.preventDefault(); eliminarLinea(idx);});
+    $lista.appendChild(row);
+  });
+  $headerLineas.classList.toggle('hidden', state.lineas.length===0);
+  $totalPedido.textContent = euros(total);
+}
+function eliminarLinea(i){ state.lineas.splice(i,1); renderPedido(); }
+
+// Mensaje
+function fechaHoyES(){ const d=new Date(); const dd=String(d.getDate()).padStart(2,'0'); const mm=String(d.getMonth()+1).padStart(2,'0'); const yy=d.getFullYear(); return `${dd}/${mm}/${yy}`; }
+function buildMensaje(){
+  const tienda = document.getElementById('tienda').value||'';
+  const contacto = document.getElementById('contacto').value||'';
+  const ciudad = document.getElementById('ciudad').value||'';
+  const nombre = document.getElementById('nombreNinaNino').value||'';
+  const fechaServicio = document.getElementById('fechaServicio').value||'';
+  const obs = document.getElementById('observaciones').value||'';
+  let msg = `🌸 Abuela Tata\n📆 Pedido: ${fechaHoyES()}\n`;
+  if(tienda) msg += `Tienda: ${tienda}\n`;
+  if(contacto) msg += `Contacto: ${contacto}\n`;
+  if(ciudad) msg += `Ciudad: ${ciudad}\n`;
+  if(nombre) msg += `Niña/niño: ${nombre}\n`;
+  if(fechaServicio) msg += `Fecha servicio: ${fechaServicio}\n`;
+  msg += `\nLíneas:\n`;
+  state.lineas.forEach((ln,i)=>{
+    msg += `${i+1}) ${ln.modelo} · ${ln.descripcion} — Cuerpo ${ln.tallaCuerpo} / Falda ${ln.tallaFalda} — Cant: ${ln.cantidad} — Precio unit.: ${euros(ln.precioUnit)} — Importe: ${euros(ln.importe)} — Supl.: ${ln.suplementos}\n`;
+    const m = ln.medidas;
+    const hayMedidas = Object.values(m).some(v=>v);
+    if(hayMedidas){
+      msg += `   Medidas (cm): hombro ${m.hombro||'-'}, bíceps ${m.ancho_manga||'-'}, largo manga ${m.largo_manga||'-'}, pecho ${m.pecho||'-'}, cintura ${m.cintura||'-'}, talle ${m.talle||'-'}, vestido ${m.vestido||'-'}\n`;
+    }
+  });
+  msg += `\nTotal: ${document.getElementById('totalPedido').textContent}\n`;
+  if(obs) msg += `\nObs.: ${obs}\n`;
+  msg += `\nNotas: +50€ patrón/medidas especiales · +18€ si cuerpo y falda (numéricas) son distintas.`;
+  return msg;
+}
+
+// Envíos
+document.getElementById('btnWhatsApp').addEventListener('click',()=>{ const num = DATA.whatsapp.replace(/[^+0-9]/g,''); const url=`https://wa.me/${num}?text=${encodeURIComponent(buildMensaje())}`; window.open(url,'_blank'); });
+document.getElementById('btnEmail').addEventListener('click',()=>{ const subject = `Abuela Tata – ${fechaHoyES()}`; const body = buildMensaje(); const url = `mailto:info@abuelatata.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; window.location.href = url; });
+</script>
+
+<div id="at-toast" role="status" aria-live="polite" aria-atomic="true">
+  <button class="at-close" aria-label="Cerrar aviso" onclick="(function(){var el=document.getElementById('at-toast'); if(el){ el.classList.remove('show'); el.style.display='none'; }})();">✕</button>
+  <div class="at-title">🌸 Aviso sobre la fecha de servicio</div>
+  <div class="at-text">
+    La fecha de servicio seleccionada la tendremos en cuenta si el pedido está listo antes;<br>
+    no obstante, el compromiso de Abuela Tata es fabricar el pedido en <b>40 días naturales</b> desde la realización del pedido.
+  </div>
+</div>
+
+<script>
+(function(){
+  function showATToast() {
+    var toast = document.getElementById('at-toast');
+    if (!toast) return;
+    toast.style.display = 'block';
+    toast.classList.add('show');
+    clearTimeout(window.__at_toast_t);
+    window.__at_toast_t = setTimeout(function(){
+      if (toast) { toast.classList.remove('show'); toast.style.display = 'none'; }
+    }, 6000);
+  }
+  function bindFechaServicio() {
+    var el = document.getElementById('fechaServicio') 
+          || document.querySelector('input[type="date"][name="fechaServicio"]') 
+          || document.querySelector('#paso1 input[type="date"]')
+          || document.querySelector('input[type="date"]');
+    if (!el || el._at_bind) return;
+    el.addEventListener('change', showATToast);
+    el.addEventListener('input', function(){ /* si escribe manualmente */ });
+    el._at_bind = true;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindFechaServicio);
+  } else {
+    bindFechaServicio();
+  }
+  // Reintento por si el DOM se rellena dinámicamente
+  setTimeout(bindFechaServicio, 400);
+  setTimeout(bindFechaServicio, 1200);
+})();
+</script>
+
+
+<script>
+// --- Parche: incluir fecha solicitada y fecha real (pedido + 40 días) en el mensaje ---
+(function(){
+  function formatES(d){
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const yy = d.getFullYear();
+    return dd + "/" + mm + "/" + yy;
+  }
+  function addDays(d, n){
+    const o = new Date(d.getTime());
+    o.setDate(o.getDate() + n);
+    return o;
+  }
+  function getFechaSolicitada(){
+    const el = document.getElementById('fechaServicio') 
+      || document.querySelector('input[type="date"][name="fechaServicio"]') 
+      || document.querySelector('#paso1 input[type="date"]')
+      || null;
+    if(!el || !el.value) return "";
+    const parts = el.value.split("-"); // yyyy-mm-dd
+    if(parts.length !== 3) return "";
+    const d = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
+    return formatES(d);
+  }
+  function getFechaReal40(){
+    const hoy = new Date();
+    return formatES(addDays(hoy, 40));
+  }
+  function appendFechas(msg){
+    const fs = getFechaSolicitada();
+    const fr = getFechaReal40();
+    let extra = "";
+    if(fs) extra += "\n📅 Fecha solicitada: " + fs;
+    if(fr) extra += "\n🕓 Fecha real estimada de servicio: " + fr;
+    extra += "\n(El plazo de fabricación es de 40 días naturales desde la realización del pedido.)";
+    return msg + extra;
+  }
+  try{
+    if (typeof window.buildMensaje === "function" && !window.buildMensaje._patchedFechas40){
+      const _orig = window.buildMensaje;
+      window.buildMensaje = function(){
+        const baseMsg = _orig.apply(this, arguments);
+        return appendFechas(baseMsg);
+      };
+      window.buildMensaje._patchedFechas40 = true;
+    } else if (typeof window.buildMensaje !== "function") {
+      // Si no existe, creamos una básica para no romper nada
+      window.buildMensaje = function(){
+        return appendFechas("Pedido Abuela Tata");
+      };
+      window.buildMensaje._patchedFechas40 = true;
+    }
+  }catch(e){}
+})();
+</script>
+
+</body>
+</html>
+
+<script>
+// --- Reset inmediato tras enviar (manteniendo Tienda, Ciudad y Contacto) ---
+(function(){
+  function q(sel){ return document.querySelector(sel); }
+  function getValAny(keys){
+    for (var i=0;i<keys.length;i++){
+      var el = q(keys[i]);
+      if (el) return el.value || "";
+    }
+    return "";
+  }
+  function setValAny(keys, val){
+    for (var i=0;i<keys.length;i++){
+      var el = q(keys[i]);
+      if (el){ el.value = val || ""; return; }
+    }
+  }
+  function clearInputsExcept(keep){
+    var nodes = document.querySelectorAll('input, select, textarea');
+    nodes.forEach(function(el){
+      var id = (el.id||'').toLowerCase();
+      var name = (el.name||'').toLowerCase();
+      var keepIt = keep.some(function(k){ return (id===k || name===k); });
+      if (keepIt) return;
+      if (el.type === 'checkbox' || el.type === 'radio'){ el.checked = false; }
+      else if (el.tagName === 'SELECT'){ el.selectedIndex = 0; }
+      else { el.value = ''; }
+    });
+  }
+  function emptyListAndTotals(){
+    try{
+      if (window.state && Array.isArray(state.lineas)){
+        state.lineas = [];
+      }
+      // Vaciar listado visual
+      var lista = document.getElementById('lista');
+      if (lista) { while (lista.firstChild) lista.removeChild(lista.firstChild); }
+      // Totales a cero si existen
+      var total = document.getElementById('totalPedido');
+      if (total) total.textContent = '0,00 €';
+      var totalInput = document.getElementById('totalPedidoInput');
+      if (totalInput) totalInput.value = 0;
+      // Si hay función de render, relanzarla
+      if (typeof window.renderLista === 'function'){ try{ renderLista(); }catch(e){} }
+      if (typeof window.calcularTotales === 'function'){ try{ calcularTotales(); }catch(e){} }
+    }catch(e){}
+  }
+  function doReset(){
+    var tienda  = getValAny(['#tienda','[name="tienda"]']);
+    var ciudad  = getValAny(['#ciudad','[name="ciudad"]']);
+    var contacto= getValAny(['#contacto','[name="contacto"]','[name="personaContacto"]']);
+    clearInputsExcept(['tienda','ciudad','contacto','personacontacto']);
+    emptyListAndTotals();
+    setValAny(['#tienda','[name="tienda"]'], tienda);
+    setValAny(['#ciudad','[name="ciudad"]'], ciudad);
+    setValAny(['#contacto','[name="contacto"]','[name="personaContacto"]'], contacto);
+    // Volver al paso 1 si existe la navegación por pasos
+    if (typeof window.go === 'function'){ try{ go(1); }catch(e){} }
+  }
+  function matches(el, sel){
+    try { return el.matches(sel); } catch(e){ return false; }
+  }
+  function findAncestor(el, sel){
+    while (el && el !== document){
+      if (matches(el, sel)) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+  function bindResetOnSend(){
+    // Detectar botones/enlaces de envío (WhatsApp / Email)
+    document.addEventListener('click', function(ev){
+      var target = ev.target;
+      var link = findAncestor(target, 'a[href^="https://wa.me"], a[href^="https://api.whatsapp.com"], a[href^="mailto:"]');
+      var btnW  = findAncestor(target, 'button[id*="whats"], button[id*="wa"], button[id*="send"]');
+      var btnM  = findAncestor(target, 'button[id*="mail"], button[id*="email"]');
+      if (link || btnW || btnM){
+        // Esperar un tick para no interferir con la apertura del enlace
+        setTimeout(doReset, 50);
+      }
+    }, true);
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', bindResetOnSend);
+  } else {
+    bindResetOnSend();
+  }
+})();
+</script>
